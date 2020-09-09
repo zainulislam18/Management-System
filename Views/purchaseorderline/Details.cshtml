@@ -1,0 +1,98 @@
+﻿@model Management_System.Models.purchase_order_line
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>purchase_order_line</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Line_No)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Line_No)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paper_quality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paper_quality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Number_of_ply)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number_of_ply)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Width)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Width)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.purchase_order.company_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.purchase_order.company_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pol_id }) |
+    @Html.ActionLink("Back to List", "Index",new { id = Model.po_id })
+</p>

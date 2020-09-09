@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="bill_id" />
+          </Key>
+          <Property Name="bill_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bill_date" Type="date" />
+          <Property Name="Payment" Type="varchar(max)" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="po_id" Type="int" />
+        </EntityType>
+        <EntityType Name="purchase_order">
+          <Key>
+            <PropertyRef Name="po_id" />
+          </Key>
+          <Property Name="po_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_name" Type="varchar" MaxLength="50" />
+          <Property Name="delivery_dat" Type="date" />
+          <Property Name="po_date" Type="date" />
+          <Property Name="tax_id" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="purchase_order_line">
+          <Key>
+            <PropertyRef Name="pol_id" />
+          </Key>
+          <Property Name="pol_id" Type="int" Nullable="false" />
+          <Property Name="Line_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Paper_quality" Type="varchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Number_of_ply" Type="varchar" MaxLength="50" />
+          <Property Name="Height" Type="int" />
+          <Property Name="Width" Type="int" />
+          <Property Name="length" Type="int" />
+          <Property Name="Rate" Type="int" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="po_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="tax_id" />
+          </Key>
+          <Property Name="tax_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tax_percentage" Type="int" />
+        </EntityType>
+        <Association Name="FK__bill__po_id__300424B4">
+          <End Role="purchase_order" Type="Self.purchase_order" Multiplicity="0..1" />
+          <End Role="bill" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_order">
+              <PropertyRef Name="po_id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="po_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__purchase___po_id__2A4B4B5E">
+          <End Role="purchase_order" Type="Self.purchase_order" Multiplicity="0..1" />
+          <End Role="purchase_order_line" Type="Self.purchase_order_line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_order">
+              <PropertyRef Name="po_id" />
+            </Principal>
+            <Dependent Role="purchase_order_line">
+              <PropertyRef Name="po_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__purchase___tax_i__276EDEB3">
+          <End Role="Tax" Type="Self.Tax" Multiplicity="0..1" />
+          <End Role="purchase_order" Type="Self.purchase_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tax">
+              <PropertyRef Name="tax_id" />
+            </Principal>
+            <Dependent Role="purchase_order">
+              <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataModelStoreContainer">
+          <EntitySet Name="bill" EntityType="Self.bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="purchase_order" EntityType="Self.purchase_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="purchase_order_line" EntityType="Self.purchase_order_line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__bill__po_id__300424B4" Association="Self.FK__bill__po_id__300424B4">
+            <End Role="purchase_order" EntitySet="purchase_order" />
+            <End Role="bill" EntitySet="bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK__purchase___po_id__2A4B4B5E" Association="Self.FK__purchase___po_id__2A4B4B5E">
+            <End Role="purchase_order" EntitySet="purchase_order" />
+            <End Role="purchase_order_line" EntitySet="purchase_order_line" />
+          </AssociationSet>
+          <AssociationSet Name="FK__purchase___tax_i__276EDEB3" Association="Self.FK__purchase___tax_i__276EDEB3">
+            <End Role="Tax" EntitySet="Tax" />
+            <End Role="purchase_order" EntitySet="purchase_order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="bill_id" />
+          </Key>
+          <Property Name="bill_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bill_date" Type="DateTime" Precision="0" />
+          <Property Name="Payment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="po_id" Type="Int32" />
+          <NavigationProperty Name="purchase_order" Relationship="Self.FK__bill__po_id__300424B4" FromRole="bill" ToRole="purchase_order" />
+        </EntityType>
+        <EntityType Name="purchase_order">
+          <Key>
+            <PropertyRef Name="po_id" />
+          </Key>
+          <Property Name="po_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="delivery_dat" Type="DateTime" Precision="0" />
+          <Property Name="po_date" Type="DateTime" Precision="0" />
+          <Property Name="tax_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bills" Relationship="Self.FK__bill__po_id__300424B4" FromRole="purchase_order" ToRole="bill" />
+          <NavigationProperty Name="purchase_order_line" Relationship="Self.FK__purchase___po_id__2A4B4B5E" FromRole="purchase_order" ToRole="purchase_order_line" />
+          <NavigationProperty Name="Tax" Relationship="Self.FK__purchase___tax_i__276EDEB3" FromRole="purchase_order" ToRole="Tax" />
+        </EntityType>
+        <EntityType Name="purchase_order_line">
+          <Key>
+            <PropertyRef Name="pol_id" />
+          </Key>
+          <Property Name="pol_id" Type="Int32" Nullable="false" />
+          <Property Name="Line_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Paper_quality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Number_of_ply" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Height" Type="Int32" />
+          <Property Name="Width" Type="Int32" />
+          <Property Name="length" Type="Int32" />
+          <Property Name="Rate" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="po_id" Type="Int32" />
+          <NavigationProperty Name="purchase_order" Relationship="Self.FK__purchase___po_id__2A4B4B5E" FromRole="purchase_order_line" ToRole="purchase_order" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="tax_id" />
+          </Key>
+          <Property Name="tax_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tax_percentage" Type="Int32" />
+          <NavigationProperty Name="purchase_order" Relationship="Self.FK__purchase___tax_i__276EDEB3" FromRole="Tax" ToRole="purchase_order" />
+        </EntityType>
+        <Association Name="FK__bill__po_id__300424B4">
+          <End Role="purchase_order" Type="Self.purchase_order" Multiplicity="0..1" />
+          <End Role="bill" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_order">
+              <PropertyRef Name="po_id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="po_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__purchase___po_id__2A4B4B5E">
+          <End Role="purchase_order" Type="Self.purchase_order" Multiplicity="0..1" />
+          <End Role="purchase_order_line" Type="Self.purchase_order_line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_order">
+              <PropertyRef Name="po_id" />
+            </Principal>
+            <Dependent Role="purchase_order_line">
+              <PropertyRef Name="po_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__purchase___tax_i__276EDEB3">
+          <End Role="Tax" Type="Self.Tax" Multiplicity="0..1" />
+          <End Role="purchase_order" Type="Self.purchase_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tax">
+              <PropertyRef Name="tax_id" />
+            </Principal>
+            <Dependent Role="purchase_order">
+              <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Management_SystemEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bills" EntityType="Self.bill" />
+          <EntitySet Name="purchase_order" EntityType="Self.purchase_order" />
+          <EntitySet Name="purchase_order_line" EntityType="Self.purchase_order_line" />
+          <EntitySet Name="Taxes" EntityType="Self.Tax" />
+          <AssociationSet Name="FK__bill__po_id__300424B4" Association="Self.FK__bill__po_id__300424B4">
+            <End Role="purchase_order" EntitySet="purchase_order" />
+            <End Role="bill" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK__purchase___po_id__2A4B4B5E" Association="Self.FK__purchase___po_id__2A4B4B5E">
+            <End Role="purchase_order" EntitySet="purchase_order" />
+            <End Role="purchase_order_line" EntitySet="purchase_order_line" />
+          </AssociationSet>
+          <AssociationSet Name="FK__purchase___tax_i__276EDEB3" Association="Self.FK__purchase___tax_i__276EDEB3">
+            <End Role="Tax" EntitySet="Taxes" />
+            <End Role="purchase_order" EntitySet="purchase_order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="Management_SystemEntities3">
+          <EntitySetMapping Name="bills">
+            <EntityTypeMapping TypeName="DataModel.bill">
+              <MappingFragment StoreEntitySet="bill">
+                <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+                <ScalarProperty Name="bill_date" ColumnName="bill_date" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="po_id" ColumnName="po_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchase_order">
+            <EntityTypeMapping TypeName="DataModel.purchase_order">
+              <MappingFragment StoreEntitySet="purchase_order">
+                <ScalarProperty Name="po_id" ColumnName="po_id" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="delivery_dat" ColumnName="delivery_dat" />
+                <ScalarProperty Name="po_date" ColumnName="po_date" />
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchase_order_line">
+            <EntityTypeMapping TypeName="DataModel.purchase_order_line">
+              <MappingFragment StoreEntitySet="purchase_order_line">
+                <ScalarProperty Name="pol_id" ColumnName="pol_id" />
+                <ScalarProperty Name="Line_No" ColumnName="Line_No" />
+                <ScalarProperty Name="Paper_quality" ColumnName="Paper_quality" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Number_of_ply" ColumnName="Number_of_ply" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="po_id" ColumnName="po_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxes">
+            <EntityTypeMapping TypeName="DataModel.Tax">
+              <MappingFragment StoreEntitySet="Tax">
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

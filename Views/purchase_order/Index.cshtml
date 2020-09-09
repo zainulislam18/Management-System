@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Management_System.Models.purchase_order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders Records</h2>
+
+<p>
+    @Html.ActionLink("Generate New Order", "Create")
+</p>
+<p>
+    @using (@Html.BeginForm())
+    {
+        @Html.TextBox("searchCompany") <input type="submit" value="searchCompany" />
+
+        @Html.TextBox("SearchPO") <input type="submit" value="SearchPO" />
+
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.po_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.company_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.delivery_dat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.po_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tax.tax_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr style="">
+    <td>
+        @Html.DisplayFor(modelItem => item.po_id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.company_name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.delivery_dat)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.po_date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tax.tax_id)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.po_id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.po_id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.po_id }) |
+        @Html.ActionLink("Material Entry", "Index", "purchaseorderline", new { id = item.po_id }, null)|
+        @Html.ActionLink("View Bill", "Index", "bills", new { id = item.po_id }, null)
+
+    </td>
+</tr>
+}
+
+</table>

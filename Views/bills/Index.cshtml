@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Management_System.Models.bill>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Bill History</h2>
+
+<p>
+    @Html.ActionLink("Generate New Bill", "Create")
+</p>
+@using (@Html.BeginForm())
+{
+    @Html.TextBox("id")
+    <input type="submit" value="Search" />
+
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.po_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bill_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.purchase_order.company_name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.purchase_order.po_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bill_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.purchase_order.company_name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.bill_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.bill_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.bill_id })
+            </td>
+        </tr>
+    }
+
+</table>
